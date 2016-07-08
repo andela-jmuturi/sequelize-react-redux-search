@@ -3,9 +3,9 @@ import React from 'react';
 import Product from './product.jsx';
 
 const Products = ({ products }) => (
-  <ul>
+  <div className='card-columns'>
     {products.map(product => <Product key={product.id} product={product} />)}
-  </ul>
+  </div>
 );
 
 Products.propTypes = {

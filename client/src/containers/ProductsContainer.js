@@ -2,20 +2,51 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Products from '../components/products.jsx';
+import SearchBar from '../components/searchBar.jsx';
+
 import * as actions from '../actions';
 
+const mainContent = {
+  marginTop: '1.2em',
+};
+
+const noProductsStyles = {
+  marginTop: '4em',
+};
 
 class ProductsContainer extends React.Component { // eslint-disable-line
   componentDidMount() {
     this.props.fetchProducts();
   }
-  render() {
-    return (
-      <div>
-        <div>
-          <input type='text' placeholder='This is where search will be implemented' />
+
+  renderProducts() {
+    const { products } = this.props;
+    if (!products.length) {
+      return (
+        <div className='text-xs-center' style={noProductsStyles}>
+          <h4>No Products Yet.</h4>
+          <p className='lead'>
+            Type a product name or category in the search bar to search.
+          </p>
         </div>
-        <Products products={this.props.products} />
+      );
+    }
+    return <Products products={this.props.products} />;
+  }
+
+  render() {
+    console.log('Getting products: ', this.props.products);
+    return (
+      <div style={mainContent}>
+        <div className='text-xs-center'>
+          <h1 className='display-4'>Product Search</h1>
+        </div>
+        <SearchBar />
+        <div className='row'>
+          <div className='col-md-6 col-md-offset-3'>
+            {this.renderProducts()}
+          </div>
+        </div>
       </div>
     );
   }
