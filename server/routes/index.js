@@ -12,6 +12,7 @@ module.exports = (app) => {
 
   // Product routes.
   app.post('/api/products', productsController.create);
+  app.get('/api/products', productsController.list);
   app.all('/api/products', methodNotAllowed);
 
   // Category routes.
