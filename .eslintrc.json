@@ -3,5 +3,11 @@
   "installedESLint": true,
   "plugins": [
     "react"
-  ]
+  ],
+  "rules": {
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ]
+  }
 }

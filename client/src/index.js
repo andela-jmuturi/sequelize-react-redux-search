@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import ProductSearchContainer from './containers/productSearchContainer';
+
 render(
-  <div>
-    Hello World!
-  </div>,
+  <ProductSearchContainer />,
   document.getElementById('root')
 );

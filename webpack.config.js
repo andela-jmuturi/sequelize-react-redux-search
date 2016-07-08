@@ -8,6 +8,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
+  devtool: 'eval',
   entry: './client/src/index.js',
   output: {
     path: path.resolve(__dirname, 'client/dist'),
@@ -16,7 +17,7 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.jsx?/,
+      test: /\.jsx?$/,
       loaders: ['babel'],
       exclude: /node_modules/,
     }],
