@@ -8,7 +8,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   entry: './client/src/index.js',
   output: {
     path: path.resolve(__dirname, 'client/dist'),

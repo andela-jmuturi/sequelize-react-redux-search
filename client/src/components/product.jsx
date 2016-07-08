@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Product = ({ product }) => (
-  <li>{product}</li>
+  <li>{product.name}</li>
 );
 
 Product.propTypes = {

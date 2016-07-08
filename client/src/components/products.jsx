@@ -4,7 +4,7 @@ import Product from './product.jsx';
 
 const Products = ({ products }) => (
   <ul>
-    {products.map(product => <Product key={product} product={product} />)}
+    {products.map(product => <Product key={product.id} product={product} />)}
   </ul>
 );
 
