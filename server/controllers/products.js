@@ -27,7 +27,11 @@ const productByIdWithCategories = (productId) => Product
 function create(req, res) {
   if (req.body.category) {
     return Category
-      .findOne({ name: req.body.category })
+      .findOne({
+        where: {
+          name: req.body.category,
+        },
+      })
       .then(category => {
         if (!category) {
           return res.status(404).send({
