@@ -60,16 +60,21 @@ function create(req, res) {
 }
 
 function list(req, res) {
+  const filterText = req.query.filterText;
+  const createQuery = (key) => ({
+    [key]: {
+      $iLike: `%${filterText}%`,
+    },
+  });
+
   return Product
     .findAll({
-      include: [{
-        model: Category,
-        as: 'categories',
-        attributes: ['id', 'name'],
-        through: {
-          attributes: [],
-        },
-      }],
+      where: {
+        $or: [
+          createQuery('name'),
+          createQuery('description'),
+        ],
+      },
     })
     .then(products => res.status(200).send(products))
     .catch(error => res.status(400).send(error));
