@@ -6,6 +6,8 @@ export function productsReducer(state = [], action) {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS_SUCCESS:
       return action.products;
+    case actionTypes.CLEAR_FILTERED:
+      return [];
     default:
       return state;
   }

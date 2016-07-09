@@ -34,6 +34,12 @@ export const changeSearchCriteria = (searchCriteria) => ({
 });
 
 export const searchProducts = (filterText, searchCriteria) => (dispatch) => {
+  if (!filterText) {
+    return dispatch({
+      type: actionTypes.CLEAR_FILTERED,
+    });
+  }
+
   const query = `?criteria=${searchCriteria}&filterText=${filterText}`;
-  dispatch(fetchProducts(query));
+  return dispatch(fetchProducts(query));
 };
