@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
-        Category.belongsToMany(models.Product, { through: 'ProductCategory' });
+        Category.belongsToMany(models.Product, {
+          as: 'products',
+          through: 'ProductCategory',
+          foreignKey: 'categoryId',
+        });
       },
     },
   });

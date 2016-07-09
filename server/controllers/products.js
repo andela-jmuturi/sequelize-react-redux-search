@@ -1,6 +1,29 @@
 const Product = require('../models').Product;
 const Category = require('../models').Category;
 
+const createProduct = (data) => Product
+  .create(data)
+  .then(product => product)
+  .catch(error => {
+    throw error;
+  });
+
+const productByIdWithCategories = (productId) => Product
+  .findById(productId, {
+    include: [{
+      model: Category,
+      as: 'categories',
+      attributes: ['id', 'name'],
+      through: {
+        attributes: [],
+      },
+    }],
+  })
+  .then(product => product)
+  .catch(error => {
+    throw error;
+  });
+
 function create(req, res) {
   if (req.body.category) {
     return Category
@@ -11,36 +34,29 @@ function create(req, res) {
             message: 'Provided category does not exist',
           });
         }
-        return Product
-          .create({
-            name: req.body.name,
-            description: req.body.description,
-          })
-          .then(product => product
-            .addCategory(category)
-            .then(() => Product
-              .findById(product.id, {
-                include: [{
-                  model: Category,
-                  attributes: ['id', 'name'],
-                }],
-              })
+        return createProduct({
+          name: req.body.name,
+          description: req.body.description,
+        })
+        .then(product => product
+          .addCategory(category)
+          .then(() =>
+            productByIdWithCategories(product.id)
               .then(prod => res.status(201).send(prod))
-            )
-            .catch(error => res.status(400).send(error))
           )
-          .catch(error => res.status(400).send(error));
+          .catch(error => res.status(400).send(error))
+        )
+        .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
   }
 
-  return Product
-    .create({
-      name: req.body.name,
-      description: req.body.description,
-    })
-    .then(product => res.status(201).send(product))
-    .catch(error => res.status(400).send(error));
+  return createProduct({
+    name: req.body.name,
+    description: req.body.description,
+  })
+  .then(product => res.status(201).send(product))
+  .catch(error => res.status(400).send(error));
 }
 
 function list(req, res) {
@@ -48,6 +64,11 @@ function list(req, res) {
     .findAll({
       include: [{
         model: Category,
+        as: 'categories',
+        attributes: ['id', 'name'],
+        through: {
+          attributes: [],
+        },
       }],
     })
     .then(products => res.status(200).send(products))

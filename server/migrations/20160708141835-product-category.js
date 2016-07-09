@@ -10,7 +10,7 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
    queryInterface.createTable('ProductCategory', {
-     ProductId: {
+     productId: {
        type: Sequelize.INTEGER,
        onDelete: 'CASCADE',
        allowNull: false,
@@ -19,7 +19,7 @@ module.exports = {
          key: 'id',
        },
      },
-     CategoryId: {
+     categoryId: {
        type: Sequelize.INTEGER,
        allowNull: true,
        references: {
