@@ -8,12 +8,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
   }, {
+    tableName: 'products',
     classMethods: {
       associate: (models) => {
         // associations can be defined here
         Product.belongsToMany(models.Category, {
           as: 'categories',
-          through: 'ProductCategory',
+          through: 'productCategory',
           foreignKey: 'productId',
         });
       },

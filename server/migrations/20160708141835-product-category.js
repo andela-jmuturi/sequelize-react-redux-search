@@ -9,13 +9,13 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-   queryInterface.createTable('ProductCategory', {
+   queryInterface.createTable('productCategory', {
      productId: {
        type: Sequelize.INTEGER,
        onDelete: 'CASCADE',
        allowNull: false,
        references: {
-         model: 'Products',
+         model: 'products',
          key: 'id',
        },
      },
@@ -23,7 +23,7 @@ module.exports = {
        type: Sequelize.INTEGER,
        allowNull: true,
        references: {
-         model: 'Categories',
+         model: 'categories',
          key: 'id',
        },
      },

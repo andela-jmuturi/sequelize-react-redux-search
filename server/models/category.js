@@ -3,14 +3,16 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   }, {
+    tableName: 'categories',
     classMethods: {
       associate: (models) => {
         // associations can be defined here
         Category.belongsToMany(models.Product, {
           as: 'products',
-          through: 'ProductCategory',
+          through: 'productCategory',
           foreignKey: 'categoryId',
         });
       },
