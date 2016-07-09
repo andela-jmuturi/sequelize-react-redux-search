@@ -11,6 +11,16 @@ export function productsReducer(state = [], action) {
   }
 }
 
+export function searchCriteria(state = 'any', action) {
+  switch (action.type) {
+    case actionTypes.CHANGE_SEARCH_CRITERIA:
+      return action.searchCriteria;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   products: productsReducer,
+  searchCriteria,
 });

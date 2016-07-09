@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Products from '../components/products.jsx';
-import SearchBar from '../components/searchBar.jsx';
+import SearchBar from './SearchBarContainer';
 
 import * as actions from '../actions';
 
@@ -14,11 +14,7 @@ const noProductsStyles = {
   marginTop: '4em',
 };
 
-class ProductsContainer extends React.Component { // eslint-disable-line
-  componentDidMount() {
-    this.props.fetchProducts();
-  }
-
+class ProductsContainer extends React.Component {
   renderProducts() {
     const { products } = this.props;
     if (!products.length) {

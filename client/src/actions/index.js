@@ -16,14 +16,24 @@ const fetchProductsFailure = (error) => ({
   error: error.data || { message: 'Failed to fetch products' },
 });
 
-export const fetchProducts = () => (dispatch) => {
+export const fetchProducts = (query) => (dispatch) => {
   dispatch(fetchProductsRequest());
 
   return Axios
-    .get('/api/products')
+    .get(`/api/products${query || ''}`)
     .then(response => {
       dispatch(fetchProductsSuccess(response.data));
     }, error => {
       dispatch(fetchProductsFailure(error));
     });
+};
+
+export const changeSearchCriteria = (searchCriteria) => ({
+  type: actionTypes.CHANGE_SEARCH_CRITERIA,
+  searchCriteria,
+});
+
+export const searchProducts = (filterText, searchCriteria) => (dispatch) => {
+  const query = `?criteria=${searchCriteria}&filterText=${filterText}`;
+  dispatch(fetchProducts(query));
 };

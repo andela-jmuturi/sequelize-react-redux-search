@@ -37,6 +37,7 @@
     "eslint-plugin-react": "^5.2.2",
     "html-webpack-plugin": "^2.22.0",
     "nodemon": "^1.9.2",
+    "redux-logger": "^2.6.1",
     "webpack": "^1.13.1"
   }
 }
