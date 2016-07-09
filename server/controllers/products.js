@@ -63,23 +63,63 @@ function create(req, res) {
   .catch(error => res.status(400).send(error));
 }
 
-function list(req, res) {
-  const filterText = req.query.filterText;
+const prepareQuery = ({ filterText = '', criteria = 'any' }) => {
   const createQuery = (key) => ({
     [key]: {
       $iLike: `%${filterText}%`,
     },
   });
 
+  const includeQuery = [{
+    model: Category,
+    as: 'categories',
+    attributes: ['id', 'name'],
+    through: {
+      attributes: [],
+    },
+  }];
+
+  let query;
+  if (criteria) {
+    if (criteria === 'any') {
+      query = {
+        where: {
+          $or: [
+            createQuery('name'),
+            createQuery('description'),
+            createQuery('$categories.name$'),
+          ],
+        },
+        include: includeQuery,
+      };
+    } else if (criteria === 'product') {
+      query = {
+        where: {
+          $or: [
+            createQuery('name'),
+            createQuery('description'),
+          ],
+        },
+        include: includeQuery,
+      };
+    } else if (criteria === 'category') {
+      query = {
+        where: {
+          $or: [
+            createQuery('$categories.name$'),
+          ],
+        },
+        include: includeQuery,
+      };
+    }
+  }
+
+  return query;
+};
+
+function list(req, res) {
   return Product
-    .findAll({
-      where: {
-        $or: [
-          createQuery('name'),
-          createQuery('description'),
-        ],
-      },
-    })
+    .findAll(prepareQuery(req.query))
     .then(products => res.status(200).send(products))
     .catch(error => res.status(400).send(error));
 }
