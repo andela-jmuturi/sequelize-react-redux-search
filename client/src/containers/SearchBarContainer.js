@@ -66,7 +66,7 @@ class SearchBarContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { searchCriteria, isFetching } = state;
+  const { searchCriteria, isFetching } = state.products;
 
   return {
     isFetching,

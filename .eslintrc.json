@@ -4,6 +4,11 @@
   "plugins": [
     "react"
   ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
   "rules": {
     "jsx-quotes": [
       "error",

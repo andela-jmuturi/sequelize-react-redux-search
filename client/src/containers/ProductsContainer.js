@@ -53,7 +53,7 @@ ProductsContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { products } = state;
+  const { products } = state.products;
 
   return {
     products,
