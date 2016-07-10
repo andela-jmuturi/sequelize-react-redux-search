@@ -13,18 +13,33 @@ class SearchBarContainer extends React.Component {
 
     this.state = {
       filterText: '',
+      timeout: null,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSearchCriteriaChange = this.handleSearchCriteriaChange.bind(this);
   }
 
+  /**
+   * Debounce calling the API for 300ms to save on network requests.
+   * The API will only be hit if the user doesn't type something else
+   * for 300ms.
+   */
   handleInputChange(event) {
     const filterText = event.target.value;
+    const callLater = () => {
+      this.setState({
+        timeout: null,
+      });
+      this.props.searchProducts(filterText, this.props.searchCriteria);
+    };
+
+    clearTimeout(this.state.timeout);
+    const timeout = setTimeout(callLater, 300);
     this.setState({
       filterText,
+      timeout,
     });
-    this.props.searchProducts(filterText, this.props.searchCriteria);
   }
 
   handleSearchCriteriaChange(event) {

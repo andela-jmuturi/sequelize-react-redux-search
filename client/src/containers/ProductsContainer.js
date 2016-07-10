@@ -31,7 +31,6 @@ class ProductsContainer extends React.Component {
   }
 
   render() {
-    console.log('Getting products: ', this.props.products);
     return (
       <div style={mainContent}>
         <div className='text-xs-center'>
