@@ -83,3 +83,23 @@ export const createProduct = (product) => (dispatch) => {
       });
     });
 };
+
+export const fetchCategories = () => (dispatch) => {
+  dispatch({
+    type: actionTypes.FETCH_CATEGORIES_REQUEST,
+  });
+
+  return Axios
+    .get('/api/category')
+    .then(response => {
+      dispatch({
+        type: actionTypes.FETCH_CATEGORIES_SUCCESS,
+        categories: response.data,
+      });
+    }, error => {
+      dispatch({
+        type: actionTypes.FETCH_CATEGORIES_FAILURE,
+        error: error.data || { message: 'Failed to fetch categories' },
+      });
+    });
+};

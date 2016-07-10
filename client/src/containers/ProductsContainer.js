@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Products from '../components/products.jsx';
 import ProductsListContainer from './ProductsListContainer';
+import CategoriesContainer from './CategoriesContainer';
 import SearchBar from './SearchBarContainer';
 
 import * as actions from '../actions';
@@ -65,6 +66,14 @@ class ProductsContainer extends React.Component {
           <div className='col-md-6'>
             {this.renderProducts()}
           </div>
+          <div className='col-md-3'>
+            <div className='row'>
+              <div className='col-md-9 pull-xs-left'>
+                <CategoriesContainer />
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     );

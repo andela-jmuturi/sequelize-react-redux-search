@@ -17,5 +17,6 @@ module.exports = (app) => {
 
   // Category routes.
   app.post('/api/category', categoryController.create);
+  app.get('/api/category', categoryController.list);
   app.all('/api/category', methodNotAllowed);
 };
