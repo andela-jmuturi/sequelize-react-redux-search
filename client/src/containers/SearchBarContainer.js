@@ -2,10 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
-
-const searchBarStyles = {
-  marginBottom: '1.2em',
-};
+import SearchBar from '../components/SearchBar.jsx';
 
 class SearchBarContainer extends React.Component {
   constructor(props) {
@@ -58,37 +55,21 @@ class SearchBarContainer extends React.Component {
 
   render() {
     return (
-      <div className='row' style={searchBarStyles}>
-        <div className='col-md-4'>
-          <select
-            className='c-select pull-xs-right'
-            onChange={this.handleSearchCriteriaChange}
-          >
-            <option>Search Criteria</option>
-            <option value='any'>Any</option>
-            <option value='product'>Product</option>
-            <option value='category'>Category</option>
-          </select>
-        </div>
-        <div className='col-md-4'>
-          <input
-            className='form-control'
-            onChange={this.handleInputChange}
-            placeholder={
-              `Type a value to search using ${this.props.searchCriteria} search criteria`
-            }
-            type='text'
-          />
-        </div>
-      </div>
+      <SearchBar
+        isFetching={this.props.isFetching}
+        handleInputChange={this.handleInputChange}
+        handleSearchCriteriaChange={this.handleSearchCriteriaChange}
+        searchCriteria={this.props.searchCriteria}
+      />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { searchCriteria } = state;
+  const { searchCriteria, isFetching } = state;
 
   return {
+    isFetching,
     searchCriteria,
   };
 };
@@ -96,6 +77,7 @@ export default connect(mapStateToProps, actions)(SearchBarContainer);
 
 SearchBarContainer.propTypes = {
   changeSearchCriteria: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   searchCriteria: PropTypes.string.isRequired,
   searchProducts: PropTypes.func.isRequired,
 };

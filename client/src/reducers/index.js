@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import * as actionTypes from '../constants';
 
-export function productsReducer(state = [], action) {
+export function products(state = [], action) {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS_SUCCESS:
       return action.products;
@@ -22,7 +22,19 @@ export function searchCriteria(state = 'any', action) {
   }
 }
 
+export function isFetching(state = false, action) {
+  switch (action.type) {
+    case actionTypes.FETCH_PRODUCTS_REQUEST:
+      return true;
+    case actionTypes.FETCH_PRODUCTS_SUCCESS:
+    case actionTypes.FETCH_PRODUCTS_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+}
 export default combineReducers({
-  products: productsReducer,
+  products,
   searchCriteria,
+  isFetching,
 });

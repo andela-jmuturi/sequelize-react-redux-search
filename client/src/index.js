@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
+import '../public/main.css';
+
 import configureStore from './store/configureStore';
 
 import ProductsContainer from './containers/ProductsContainer';
