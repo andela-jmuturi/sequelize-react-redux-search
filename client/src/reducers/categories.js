@@ -7,6 +7,24 @@ export function categories(state = [], action) {
     case actionTypes.FETCH_CATEGORIES_SUCCESS:
       return action.categories;
 
+    case actionTypes.CREATE_CATEGORY_REQUEST:
+      // Perform an optimistic update
+      return [
+        ...state,
+        action.category,
+      ];
+
+    case actionTypes.CREATE_CATEGORY_SUCCESS:
+      // Rollback the optimistic update and accept server data instead.
+      return [
+        ...state.slice(0, state.length - 1),
+        action.category,
+      ];
+
+    case actionTypes.CREATE_CATEGORY_FAILURE:
+      // Rollback the optimistic update.
+      return state.slice(0, state.length - 1);
+
     default:
       return state;
   }

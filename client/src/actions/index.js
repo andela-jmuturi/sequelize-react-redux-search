@@ -103,3 +103,27 @@ export const fetchCategories = () => (dispatch) => {
       });
     });
 };
+
+export const createCategory = ({ name }) => (dispatch) => {
+  dispatch({
+    type: actionTypes.CREATE_CATEGORY_REQUEST,
+    category: {
+      name,
+      id: Math.floor(Math.random(1000000)).toString(32),
+    },
+  });
+
+  return Axios
+    .post('/api/category', { name })
+    .then(response => {
+      dispatch({
+        type: actionTypes.CREATE_CATEGORY_SUCCESS,
+        category: response.data,
+      });
+    }, error => {
+      dispatch({
+        type: actionTypes.CREATE_CATEGORY_FAILURE,
+        error: error.data || { message: 'Failed to create category' },
+      });
+    });
+};
