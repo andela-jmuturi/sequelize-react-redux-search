@@ -33,6 +33,11 @@ export const changeSearchCriteria = (searchCriteria) => ({
   searchCriteria,
 });
 
+export const changeFilterText = (filterText) => ({
+  type: actionTypes.CHANGE_FILTER_TEXT,
+  filterText,
+});
+
 export const searchProducts = (filterText, searchCriteria) => (dispatch) => {
   if (!filterText) {
     return dispatch({

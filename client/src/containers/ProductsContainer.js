@@ -16,8 +16,24 @@ const noProductsStyles = {
 
 class ProductsContainer extends React.Component {
   renderProducts() {
-    const { products } = this.props;
+    const { products, filterText, searchCriteria, isFetching } = this.props;
     if (!products.length) {
+      if (filterText && !isFetching) {
+        return (
+          <div className='text-xs-center' style={noProductsStyles}>
+            <p className='lead'>
+              No products matching
+              {" "}
+              "<strong>{filterText}</strong>" were found using
+              {" "}
+              "<strong>{searchCriteria}</strong>" search criteria.
+            </p>
+            <p>
+              Try changing the search criteria or typing in alternative product names.
+            </p>
+          </div>
+        );
+      }
       return (
         <div className='text-xs-center' style={noProductsStyles}>
           <h4>No Products Yet.</h4>
@@ -49,14 +65,19 @@ class ProductsContainer extends React.Component {
 
 ProductsContainer.propTypes = {
   fetchProducts: PropTypes.func.isRequired,
+  filterText: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   products: PropTypes.array.isRequired,
+  searchCriteria: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { products } = state.products;
+  const { products, searchCriteria, filterText } = state.products;
 
   return {
+    filterText,
     products,
+    searchCriteria,
   };
 };
 

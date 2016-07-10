@@ -33,8 +33,19 @@ export function isFetching(state = false, action) {
       return state;
   }
 }
+
+export function filterText(state = '', action) {
+  switch (action.type) {
+    case actionTypes.CHANGE_FILTER_TEXT:
+      return action.filterText;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   products,
   searchCriteria,
   isFetching,
+  filterText,
 });

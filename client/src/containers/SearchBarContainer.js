@@ -9,7 +9,6 @@ class SearchBarContainer extends React.Component {
     super(props);
 
     this.state = {
-      filterText: '',
       timeout: null,
     };
 
@@ -28,13 +27,13 @@ class SearchBarContainer extends React.Component {
       this.setState({
         timeout: null,
       });
+      this.props.changeFilterText(filterText);
       this.props.searchProducts(filterText, this.props.searchCriteria);
     };
 
     clearTimeout(this.state.timeout);
     const timeout = setTimeout(callLater, 300);
     this.setState({
-      filterText,
       timeout,
     });
   }
@@ -42,14 +41,14 @@ class SearchBarContainer extends React.Component {
   handleSearchCriteriaChange(event) {
     // Determine if the selected criteria is valid or not. If not, allow the
     // reducer to return the default value.
-    const { searchCriteria } = this.props;
+    const { searchCriteria, filterText } = this.props;
     const acceptableCriteria = 'any product category'.split(' ');
     const criteria = event.target.value;
     const isAcceptable = acceptableCriteria.indexOf(criteria) !== -1;
     this.props.changeSearchCriteria(isAcceptable ? criteria : 'any');
 
-    if (isAcceptable && this.state.filterText && criteria !== searchCriteria) {
-      this.props.searchProducts(this.state.filterText, criteria);
+    if (isAcceptable && filterText && criteria !== searchCriteria) {
+      this.props.searchProducts(filterText, criteria);
     }
   }
 
@@ -66,9 +65,10 @@ class SearchBarContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { searchCriteria, isFetching } = state.products;
+  const { searchCriteria, isFetching, filterText } = state.products;
 
   return {
+    filterText,
     isFetching,
     searchCriteria,
   };
@@ -76,7 +76,9 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, actions)(SearchBarContainer);
 
 SearchBarContainer.propTypes = {
+  changeFilterText: PropTypes.func.isRequired,
   changeSearchCriteria: PropTypes.func.isRequired,
+  filterText: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   searchCriteria: PropTypes.string.isRequired,
   searchProducts: PropTypes.func.isRequired,
