@@ -33,6 +33,7 @@ class CategoriesContainer extends React.Component {
     this.props.createCategory({ name });
     this.setState({
       isCreatingCategory: !this.state.isCreatingCategory,
+      name: '',
     });
   }
 

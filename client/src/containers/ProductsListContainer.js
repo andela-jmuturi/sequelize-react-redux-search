@@ -35,6 +35,8 @@ class ProductListContainer extends React.Component {
     this.props.createProduct({ name, description });
     this.setState({
       isCreatingProduct: !this.state.isCreatingProduct,
+      name: '',
+      description: '',
     });
   }
 
