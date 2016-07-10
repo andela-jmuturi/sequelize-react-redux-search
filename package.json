@@ -1,9 +1,14 @@
 {
-  "name": "tech-assessment-search-feature",
+  "name": "sequelize-react-redux-search",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "export NODE_ENV=production && webpack -p",
+    "postinstall": "npm run build",
+    "prestart": "sequelize db:migrate",
+    "prestart:dev": "npm run prestart",
+    "start": "export NODE_ENV=production && node bin/www",
     "start:dev": "nodemon -w server bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -42,5 +47,8 @@
     "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
+  },
+  "engines": {
+    "node": "6.2.1"
   }
 }
