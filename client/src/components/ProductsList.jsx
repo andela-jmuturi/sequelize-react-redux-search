@@ -1,23 +1,21 @@
 import React, { PropTypes } from 'react';
 
-const nameStyles = {
-  fontSize: '0.9em',
-};
+import Chip from './Chip.jsx';
 
 const btnStyles = {
   marginTop: '1em',
 };
 
 const ProductsList = ({ products, toggleShowCreateProduct }) => (
-  <div className='card card-block text-xs-center'>
-    <h6 className='card-title'>Names of Available Products</h6>
+  <div className='card card-block'>
+    <h6 className='card-title text-xs-center'>Names of Available Products</h6>
     <div className='card-text'>
-      {products.map((product, index) => (
-        <span key={product.id} style={nameStyles}>
-          {product.name}{index < products.length - 1 ? ', ' : ''}
-        </span>
+      {products.map((product) => (
+        <Chip key={product.id} >
+          {product.name}
+        </Chip>
       ))}
-      <div>
+      <div className='text-xs-center'>
         <button
           className='btn btn-sm btn-primary-outline'
           onClick={toggleShowCreateProduct}
