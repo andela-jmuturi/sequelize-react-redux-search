@@ -8,19 +8,17 @@ const NewCategory = (props) => (
   <div className='card card-block'>
     <h6 className='card-title text-xs-center'>Create a New Category</h6>
     <div className='card-text'>
-      <form>
-        <fieldset className='form-group'>
-          <label htmlFor='name'>Category Name</label>
-          <input
-            className='form-control'
-            id='name'
-            name='name'
-            onChange={props.onChange}
-            type='text'
-            required
-          />
-        </fieldset>
-      </form>
+      <div className='form-group'>
+        <label htmlFor='name'>Category Name</label>
+        <input
+          className='form-control'
+          id='name'
+          name='name'
+          onChange={props.onChange}
+          type='text'
+          required
+        />
+      </div>
       <div className='row' style={btnContainerStyles}>
         <div className='col-xs-6'>
           <button

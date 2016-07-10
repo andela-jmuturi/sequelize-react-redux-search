@@ -31,8 +31,8 @@ class ProductListContainer extends React.Component {
   }
 
   handleSubmit() {
-    const { name, description } = this.state;
-    this.props.createProduct({ name, description });
+    const { name, description, category } = this.state;
+    this.props.createProduct({ name, description, category });
     this.setState({
       isCreatingProduct: !this.state.isCreatingProduct,
       name: '',
@@ -51,6 +51,7 @@ class ProductListContainer extends React.Component {
     if (this.state.isCreatingProduct) {
       return (
         <NewProduct
+          categories={this.props.categories}
           handleSubmit={this.handleSubmit}
           onChange={this.handleInputChange}
           toggleShowCreateProduct={this.toggleShowCreateProduct}
@@ -68,8 +69,10 @@ class ProductListContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   const { products } = state.productsList;
+  const { categories } = state.categories;
 
   return {
+    categories,
     products,
   };
 };
@@ -77,6 +80,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, actions)(ProductListContainer);
 
 ProductListContainer.propTypes = {
+  categories: PropTypes.array.isRequired,
   createProduct: PropTypes.func.isRequired,
   fetchProductsList: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,

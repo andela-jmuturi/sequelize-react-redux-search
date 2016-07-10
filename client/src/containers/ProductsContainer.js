@@ -35,6 +35,12 @@ class ProductsContainer extends React.Component {
             </p>
           </div>
         );
+      } else if (filterText && isFetching) {
+        return (
+          <div className='text-xs-center' style={noProductsStyles}>
+            <h1 className='display-4'>Searching...</h1>
+          </div>
+        );
       }
       return (
         <div className='text-xs-center' style={noProductsStyles}>
@@ -55,6 +61,7 @@ class ProductsContainer extends React.Component {
           <h1 className='display-4'>Product Search</h1>
         </div>
         <SearchBar />
+        <hr />
         <div className='row'>
           <div className='col-md-3'>
             <div className='row'>
