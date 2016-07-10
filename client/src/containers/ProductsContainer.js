@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Products from '../components/products.jsx';
+import ProductsListContainer from './ProductsListContainer';
 import SearchBar from './SearchBarContainer';
 
 import * as actions from '../actions';
@@ -54,7 +55,14 @@ class ProductsContainer extends React.Component {
         </div>
         <SearchBar />
         <div className='row'>
-          <div className='col-md-6 col-md-offset-3'>
+          <div className='col-md-3'>
+            <div className='row'>
+              <div className='col-md-9 pull-xs-right'>
+                <ProductsListContainer />
+              </div>
+            </div>
+          </div>
+          <div className='col-md-6'>
             {this.renderProducts()}
           </div>
         </div>
@@ -72,10 +80,11 @@ ProductsContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { products, searchCriteria, filterText } = state.products;
+  const { products, searchCriteria, filterText, isFetching } = state.products;
 
   return {
     filterText,
+    isFetching,
     products,
     searchCriteria,
   };
