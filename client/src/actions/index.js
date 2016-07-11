@@ -80,7 +80,9 @@ export const createProduct = (product) => (dispatch) => {
       dispatch({
         type: actionTypes.CREATE_PRODUCT_FAILURE,
         error: error.data || { message: 'Failed to create product' },
+        product,
       });
+      return Promise.reject(); // Needed for chaining in the component.
     });
 };
 
@@ -133,4 +135,8 @@ export const createCategory = ({ name }) => (dispatch) => {
 
 export const toggleShowCreateCategory = () => ({
   type: actionTypes.TOGGLE_CREATE_CATEGORY,
+});
+
+export const toggleShowCreateProduct = () => ({
+  type: actionTypes.TOGGLE_CREATE_PRODUCT,
 });

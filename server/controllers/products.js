@@ -36,7 +36,7 @@ function create(req, res) {
       .then(category => {
         if (!category) {
           return resolveErrors(res, null, 404, {
-            message: 'Provided category does not exist',
+            category: 'Provided category does not exist',
           });
         }
         return createProduct({

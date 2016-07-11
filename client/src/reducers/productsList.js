@@ -30,6 +30,41 @@ export function products(state = [], action) {
   }
 }
 
+export function isCreatingProduct(state = false, action) {
+  switch (action.type) {
+    case actionTypes.TOGGLE_CREATE_PRODUCT:
+      return !state;
+
+    case actionTypes.CREATE_PRODUCT_SUCCESS:
+      return false;
+
+    case actionTypes.CREATE_PRODUCT_FAILURE:
+      return true;
+
+    default:
+      return state;
+  }
+}
+
+export function errors(state = null, action) {
+  switch (action.type) {
+    case actionTypes.TOGGLE_CREATE_PRODUCT:
+    case actionTypes.CREATE_PRODUCT_SUCCESS:
+      return null;
+
+    case actionTypes.CREATE_PRODUCT_FAILURE:
+      return {
+        error: action.error,
+        product: action.product,
+      };
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
+  errors,
+  isCreatingProduct,
   products,
 });
