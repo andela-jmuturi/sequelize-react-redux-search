@@ -1,4 +1,5 @@
 const Category = require('../models').Category;
+const resolveErrors = require('../utils').resolveErrors;
 
 function create(req, res) {
   return Category
@@ -6,15 +7,16 @@ function create(req, res) {
       name: req.body.name,
     })
     .then(category => res.status(201).send(category))
-    .catch(error => res.status(400).send(error));
+    .catch(error => resolveErrors(res, error));
 }
 
 function list(req, res) {
   return Category
     .all()
     .then(categories => res.status(200).send(categories))
-    .catch(error => res.status(400).send(error));
+    .catch(error => resolveErrors(res, error));
 }
+
 module.exports = {
   create,
   list,

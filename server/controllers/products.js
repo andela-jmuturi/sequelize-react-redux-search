@@ -1,5 +1,6 @@
 const Product = require('../models').Product;
 const Category = require('../models').Category;
+const resolveErrors = require('../utils').resolveErrors;
 
 const createProduct = (data) => Product
   .create(data)
@@ -34,7 +35,7 @@ function create(req, res) {
       })
       .then(category => {
         if (!category) {
-          return res.status(404).send({
+          return resolveErrors(res, null, 404, {
             message: 'Provided category does not exist',
           });
         }
@@ -48,11 +49,11 @@ function create(req, res) {
             productByIdWithCategories(product.id)
               .then(prod => res.status(201).send(prod))
           )
-          .catch(error => res.status(400).send(error))
+          .catch(error => resolveErrors(res, error))
         )
-        .catch(error => res.status(400).send(error));
+        .catch(error => resolveErrors(res, error));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => resolveErrors(res, error));
   }
 
   return createProduct({
@@ -60,7 +61,7 @@ function create(req, res) {
     description: req.body.description,
   })
   .then(product => res.status(201).send(product))
-  .catch(error => res.status(400).send(error));
+  .catch(error => resolveErrors(res, error));
 }
 
 const prepareQuery = ({ filterText = '', criteria = 'any' }) => {
@@ -121,7 +122,7 @@ function list(req, res) {
   return Product
     .findAll(prepareQuery(req.query))
     .then(products => res.status(200).send(products))
-    .catch(error => res.status(400).send(error));
+    .catch(error => resolveErrors(res, error));
 }
 
 module.exports = {
