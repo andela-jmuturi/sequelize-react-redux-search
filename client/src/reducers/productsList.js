@@ -23,7 +23,7 @@ export function products(state = [], action) {
 
     case actionTypes.CREATE_PRODUCT_FAILURE:
       // Rollback our optimistic update.
-      return state.slice(1);
+      return state.slice(0, state.length - 1);
 
     default:
       return state;
