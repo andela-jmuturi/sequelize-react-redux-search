@@ -42,7 +42,42 @@ export function isFetching(state = false, action) {
   }
 }
 
+export function isCreatingCategory(state = false, action) {
+  switch (action.type) {
+    case actionTypes.TOGGLE_CREATE_CATEGORY:
+      return !state;
+
+    case actionTypes.CREATE_CATEGORY_FAILURE:
+      return true;
+
+    case actionTypes.CREATE_CATEGORY_SUCCESS:
+      return false;
+
+    default:
+      return state;
+  }
+}
+
+export function errors(state = null, action) {
+  switch (action.type) {
+    // Clear the error if we cancel creating a new category.
+    case actionTypes.TOGGLE_CREATE_CATEGORY:
+    case actionTypes.CREATE_CATEGORY_SUCCESS:
+      return null;
+
+    case actionTypes.CREATE_CATEGORY_FAILURE:
+      return {
+        error: action.error,
+        category: action.category,
+      };
+
+    default:
+      return state;
+  }
+}
 export default combineReducers({
   categories,
+  errors,
+  isCreatingCategory,
   isFetching,
 });

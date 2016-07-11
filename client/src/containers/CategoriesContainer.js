@@ -10,14 +10,13 @@ class CategoriesContainer extends React.Component {
     super(props);
 
     this.state = {
-      isCreatingCategory: false,
       name: '',
     };
 
-    this.toggleShowCreateCategory = this.toggleShowCreateCategory.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentDidMount() {
     this.props.fetchCategories();
   }
@@ -32,43 +31,38 @@ class CategoriesContainer extends React.Component {
     const { name } = this.state;
     this.props.createCategory({ name });
     this.setState({
-      isCreatingCategory: !this.state.isCreatingCategory,
       name: '',
     });
   }
 
-  toggleShowCreateCategory(ev) {
-    ev.preventDefault();
-    this.setState({
-      isCreatingCategory: !this.state.isCreatingCategory,
-    });
-  }
-
-
   render() {
-    if (this.state.isCreatingCategory) {
+    if (this.props.isCreatingCategory) {
       return (
         <NewCategory
+          errors={this.props.errors}
           handleSubmit={this.handleSubmit}
+          name={this.state.name}
           onChange={this.handleInputChange}
-          toggleShowCreateCategory={this.toggleShowCreateCategory}
+          toggleShowCreateCategory={this.props.toggleShowCreateCategory}
         />
       );
     }
     return (
       <CategoriesList
         categories={this.props.categories}
-        toggleShowCreateCategory={this.toggleShowCreateCategory}
+        toggleShowCreateCategory={this.props.toggleShowCreateCategory}
       />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { categories } = state.categories;
+  const { categories, isCreatingCategory, errors } = state.categories;
 
   return {
     categories,
+    errors,
+    isCreatingCategory,
   };
 };
 
@@ -77,5 +71,13 @@ export default connect(mapStateToProps, actions)(CategoriesContainer);
 CategoriesContainer.propTypes = {
   createCategory: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
+  errors: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.shape({
+      name: PropTypes.string,
+    }),
+  ]),
+  isCreatingCategory: PropTypes.bool.isRequired,
   fetchCategories: PropTypes.func.isRequired,
+  toggleShowCreateCategory: PropTypes.func.isRequired,
 };

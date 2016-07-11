@@ -124,6 +124,13 @@ export const createCategory = ({ name }) => (dispatch) => {
       dispatch({
         type: actionTypes.CREATE_CATEGORY_FAILURE,
         error: error.data || { message: 'Failed to create category' },
+        category: {
+          name,
+        },
       });
     });
 };
+
+export const toggleShowCreateCategory = () => ({
+  type: actionTypes.TOGGLE_CREATE_CATEGORY,
+});
