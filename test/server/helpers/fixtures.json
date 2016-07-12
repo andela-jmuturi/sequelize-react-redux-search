@@ -1,0 +1,50 @@
+[
+  {
+    "model": "Category",
+    "data": {
+      "id": 1,
+      "name": "test"
+    }
+  },
+  {
+    "model": "Category",
+    "data": {
+      "id": 2,
+      "name": "electronics"
+    }
+  },
+  {
+    "model": "Category",
+    "data": {
+      "id": 3,
+      "name": "food"
+    }
+  },
+  {
+    "model": "Product",
+    "data": {
+      "id": 10,
+      "name": "test product",
+      "description": "test product description",
+      "categories": [1]
+    }
+  },
+  {
+    "model": "Product",
+    "data": {
+      "id": 11,
+      "name": "spicy food",
+      "description": "spicy food description",
+      "categories": [3]
+    }
+  },
+  {
+    "model": "Product",
+    "data": {
+      "id": 12,
+      "name": "smart phone",
+      "description": "smart phone description",
+      "categories": [2]
+    }
+  }
+]
