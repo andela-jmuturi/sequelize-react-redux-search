@@ -1,4 +1,9 @@
 {
+  "env": {
+    "node": true,
+    "browser": true,
+    "mocha": true
+  },
   "extends": "airbnb",
   "installedESLint": true,
   "plugins": [
