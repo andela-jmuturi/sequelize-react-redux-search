@@ -2,21 +2,21 @@
   {
     "model": "Category",
     "data": {
-      "id": 1,
+      "id": 123,
       "name": "test"
     }
   },
   {
     "model": "Category",
     "data": {
-      "id": 2,
+      "id": 124,
       "name": "electronics"
     }
   },
   {
     "model": "Category",
     "data": {
-      "id": 3,
+      "id": 125,
       "name": "food"
     }
   },
@@ -26,7 +26,7 @@
       "id": 10,
       "name": "test product",
       "description": "test product description",
-      "categories": [1]
+      "categories": [123]
     }
   },
   {
@@ -35,7 +35,7 @@
       "id": 11,
       "name": "spicy food",
       "description": "spicy food description",
-      "categories": [3]
+      "categories": [125]
     }
   },
   {
@@ -44,7 +44,7 @@
       "id": 12,
       "name": "smart phone",
       "description": "smart phone description",
-      "categories": [2]
+      "categories": [124]
     }
   }
 ]
